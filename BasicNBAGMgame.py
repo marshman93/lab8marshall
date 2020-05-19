@@ -1,3 +1,5 @@
+import random
+
 playerDict = {
     'LeBron James': 97, 'Giannis Antetokounmpo': 97, 'James Harden': 97, 'Kevin Durant': 96, 'Kawhi Leonard': 96,
     'Luka Doncic': 96, 'Anthony Davis': 96, 'Stephen Curry': 95, 'Damian Lillard': 94, 'Nikola Jokic': 91, 'Joel Embiid': 91,
@@ -57,6 +59,36 @@ class Celtics():
     def add_rating(self, rating):
         self.ratings.append(rating)
 
+def checkforvalidname(team): # This makes sure that the team name the user enters is valid.
+    x = team
+    if x == 'Lakers':
+        pass
+    elif x == 'Warriors':
+        pass
+    elif x == 'Spurs':
+        pass
+    elif x == 'Bulls':
+        pass
+    elif x == 'Knicks':
+        pass
+    elif x == 'Celtics':
+        pass
+    else:
+        userTeam = input('You entered an invalid team name! Please re-enter your name here: ')
+        checkforvalidname(userTeam)
+        return userTeam
+
+def draft(team): # Beginnings of the draft function, not nearly done with it yet
+    print('Welcome to the Fantasy Draft! You are controlling the ' + team + '.')
+    draftorder = ['Lakers', 'Warriors', 'Spurs', 'Bulls', 'Knicks', 'Celtics']
+    random.shuffle(draftorder)
+    print('The draft order has been randomized. It is ' + str(draftorder) + '.')
+    print('The draft is a snake draft, so the team with the 6th pick will get the 7th pick, 5th with 8th, and so on.')
+    print('Before the draft begins, it will be important to know who is available. Here is a list of the 60 players you can draft!')
+    for x, y in playerDict.items():
+        print(x,y)
+
+    
 if __name__ == "__main__":
     print('Welcome to NBA Manager Version 1.0! You will be tasked with managing one of the six NBA teams that are in this game!')
     print('You must guide your team from the Fantasy Draft up until the end of the regular season, and hopefully the playoffs!')
@@ -68,3 +100,5 @@ if __name__ == "__main__":
     print('The playoffs are a best of 5 series for the Division Championship and a best of 7 series for the crown of NBA Champion!')
     print('It is time to choose your team! Please only enter the mascot name of the team you wish to choose.')
     userTeam = input('The options are Lakers, Warriors, Spurs, Bulls, Knicks and Celtics. Enter your team name in here:  ')
+    checkforvalidname(userTeam)
+    draft(userTeam)
