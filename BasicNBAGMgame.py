@@ -17,88 +17,726 @@ playerDict = {
 ''' This is the full dictionary consisting of 60 players to be spread amongst 6 NBA Teams through a draft.
 Each player has a corresponding rating, based off of how good they are in real life. '''
 
-class Lakers():
+class userTeamClass():
     ratings = []
+    players = []
     def __init__(self, player):
         self.name = player
     def add_rating(self, rating):
         self.ratings.append(rating)
+    def add_player(self, player):
+        self.players.append(player)
+
+class Lakers():
+    ratings = []
+    players = []
+    def __init__(self, player):
+        self.name = player
+    def add_rating(self, rating):
+        self.ratings.append(rating)
+    def add_player(self, player):
+        self.players.append(player)
 
 class Warriors():
     ratings = []
+    players = []
     def __init__(self, player):
         self.name = player
     def add_rating(self, rating):
         self.ratings.append(rating)
-
-class Spurs():
-    ratings = []
-    def __init__(self, player):
-        self.name = player
-    def add_rating(self, rating):
-        self.ratings.append(rating)
+    def add_player(self, player):
+        self.players.append(player)
 
 class Bulls():
     ratings = []
+    players = []
     def __init__(self, player):
         self.name = player
     def add_rating(self, rating):
         self.ratings.append(rating)
+    def add_player(self, player):
+        self.players.append(player)
 
 class Knicks():
     ratings = []
+    players = []
     def __init__(self, player):
         self.name = player
     def add_rating(self, rating):
         self.ratings.append(rating)
+    def add_player(self, player):
+        self.players.append(player)
 
 class Celtics():
     ratings = []
+    players = []
     def __init__(self, player):
         self.name = player
     def add_rating(self, rating):
         self.ratings.append(rating)
+    def add_player(self, player):
+        self.players.append(player)
 
-def checkforvalidname(team): # This makes sure that the team name the user enters is valid.
-    x = team
-    if x == 'Lakers':
-        pass
-    elif x == 'Warriors':
-        pass
-    elif x == 'Spurs':
-        pass
-    elif x == 'Bulls':
-        pass
-    elif x == 'Knicks':
-        pass
-    elif x == 'Celtics':
-        pass
-    else:
-        userTeam = input('You entered an invalid team name! Please re-enter your name here: ')
-        checkforvalidname(userTeam)
-        return userTeam
-
-def draft(team): # Beginnings of the draft function, not nearly done with it yet
+def draft(team):
     print('Welcome to the Fantasy Draft! You are controlling the ' + team + '.')
-    draftorder = ['Lakers', 'Warriors', 'Spurs', 'Bulls', 'Knicks', 'Celtics']
+    draftorder = ['Lakers', 'Warriors', 'Bulls', 'Knicks', 'Celtics', team]
     random.shuffle(draftorder)
-    print('The draft order has been randomized. It is ' + str(draftorder) + '.')
-    print('The draft is a snake draft, so the team with the 6th pick will get the 7th pick, 5th with 8th, and so on.')
     print('Before the draft begins, it will be important to know who is available. Here is a list of the 60 players you can draft!')
+    playerlist = []
     for x, y in playerDict.items():
         print(x,y)
+        playerlist.append(x)
+    print('The draft order has been randomized. It is ' + str(draftorder) + '.')
+    print('You will select 10 players, and therefore there will be 10 rounds in this draft.')
+    print('The draft is a snake draft, so the team with the 6th pick will get the 7th pick, 5th with 8th, and so on.')
+    print('Let the Fantasy Draft begin! Good luck!')
+    reversedraftorder = draftorder[::-1]
 
+    for i in range(0,6):
+        if draftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 1st round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif draftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 1st round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif draftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 1st round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif draftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 1st round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif draftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 1st round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif draftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 1st round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #1!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if reversedraftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 2nd round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif reversedraftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 2nd round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif reversedraftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 2nd round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif reversedraftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 2nd round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif reversedraftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 2nd round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif reversedraftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 2nd round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #2!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if draftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 3rd round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif draftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 3rd round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif draftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 3rd round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif draftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 3rd round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif draftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 3rd round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif draftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 3rd round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #3!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if reversedraftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 4th round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif reversedraftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 4th round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif reversedraftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 4th round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif reversedraftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 4th round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif reversedraftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 4th round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif reversedraftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 4th round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #4!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if draftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 5th round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif draftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 5th round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif draftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 5th round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif draftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 5th round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif draftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 5th round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif draftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 5th round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #5!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if reversedraftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 6th round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif reversedraftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 6th round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif reversedraftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 6th round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif reversedraftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 6th round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif reversedraftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 6th round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif reversedraftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 6th round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #6!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if draftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 7th round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif draftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 7th round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif draftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 7th round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif draftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 7th round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif draftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 7th round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif draftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 7th round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #7!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if reversedraftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 8th round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif reversedraftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 8th round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif reversedraftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 8th round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif reversedraftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 8th round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif reversedraftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 8th round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif reversedraftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 8th round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #8!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if draftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 9th round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif draftorder[i] == 'Warriors':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Warriors selected ' + selection1 + ' with their 9th round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif draftorder[i] == 'Lakers':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Lakers selected ' + selection1 + ' with their 9th round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif draftorder[i] == 'Bulls':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Bulls selected ' + selection1 + ' with their 9th round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif draftorder[i] == 'Knicks':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Knicks selected ' + selection1 + ' with their 9th round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif draftorder[i] == 'Celtics':
+            x = random.randint(0,4)
+            selection1 = playerlist[x]
+            print('The Celtics selected ' + selection1 + ' with their 9th round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Here are the players remaining after Round #9!')
+    for x, y in playerDict.items():
+        print(x,y)
+    for i in range(0,6):
+        if reversedraftorder[i] == team:
+            selection1 = input('It is your turn to choose! Select your player here:  ')
+            print('The ' + team + ' selected ' + selection1 + ' with their 10th round pick.')
+            userTeam1 = userTeamClass(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            userTeam1.add_rating(ratingofplayer)
+            userTeam1.add_player(selection1)
+        elif reversedraftorder[i] == 'Warriors':
+            selection1 = playerlist[0]
+            print('The Warriors selected ' + selection1 + ' with their 10th round pick.')
+            Warriors1 = Warriors(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Warriors1.add_rating(ratingofplayer)
+            Warriors1.add_player(selection1)
+        elif reversedraftorder[i] == 'Lakers':
+            selection1 = playerlist[0]
+            print('The Lakers selected ' + selection1 + ' with their 10th round pick.')
+            Lakers1 = Lakers(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Lakers1.add_rating(ratingofplayer)
+            Lakers1.add_player(selection1)
+        elif reversedraftorder[i] == 'Bulls':
+            selection1 = playerlist[0]
+            print('The Bulls selected ' + selection1 + ' with their 10th round pick.')
+            Bulls1 = Bulls(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Bulls1.add_rating(ratingofplayer)
+            Bulls1.add_player(selection1)
+        elif reversedraftorder[i] == 'Knicks':
+            selection1 = playerlist[0]
+            print('The Knicks selected ' + selection1 + ' with their 10th round pick.')
+            Knicks1 = Knicks(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Knicks1.add_rating(ratingofplayer)
+            Knicks1.add_player(selection1)
+        elif reversedraftorder[i] == 'Celtics':
+            selection1 = playerlist[0]
+            print('The Celtics selected ' + selection1 + ' with their 10th round pick.')
+            Celtics1 = Celtics(selection1)
+            ratingofplayer = playerDict[selection1]
+            playerDict.pop(selection1)
+            playerlist.remove(selection1)
+            Celtics1.add_rating(ratingofplayer)
+            Celtics1.add_player(selection1)
+    print('Congratulations! The Fantasy Draft is complete and all teams are filled!')
+    print('Here is what the ' + team + ' looks like. First, there is your roster of players, and after is each players corresponding rating.')
+    print(userTeam1.players)
+    print(userTeam1.ratings)
+    print('In addition, here are the other teams rosters.')
+    print('The Warriors roster is')
+    print(Warriors1.players)
+    print('The Lakers roster is')
+    print(Lakers1.players)
+    print('The Bulls roster is') 
+    print(Bulls1.players)
+    print('The Knicks roster is')
+    print(Knicks1.players)
+    print('The Celtics roster is')
+    print(Celtics1.players)
     
 if __name__ == "__main__":
-    print('Welcome to NBA Manager Version 1.0! You will be tasked with managing one of the six NBA teams that are in this game!')
+    print('Welcome to NBA Manager Version 1.0! You will be tasked with managing your own NBA team!')
     print('You must guide your team from the Fantasy Draft up until the end of the regular season, and hopefully the playoffs!')
-    print('There are six teams to choose from, which are the 6 most storied franchises in NBA history.')
-    print('These teams are the LA Lakers, Golden State Warriors, San Antonio Spurs, Chicago Bulls, New York Knicks, and Boston Celtics.')
-    print('There are two divisons: the East and the West.')
-    print('The Lakers, Warriors, and Spurs are in the West, while the Bulls, Knicks, and Celtics are in the East.')
-    print('The regular seasons consists of 12 games, and the two best records from each divsion make the playoffs.')
-    print('The playoffs are a best of 5 series for the Division Championship and a best of 7 series for the crown of NBA Champion!')
+    print('You can choose your own team name and will compete against 5 other existing other NBA teams.')
+    print('These teams are the Los Angeles Lakers, Golden State Warriors, Chicago Bulls, New York Knicks, and Boston Celtics. These are 5 of the most storied franchises in NBA history.')
+    print('The regular seasons consists of 12 games, and the 4 best records make the playoffs.')
+    print('The playoffs are a best of 5 series for the Semifinals and a best of 7 series for the crown of NBA Champion!')
     print('It is time to choose your team! Please only enter the mascot name of the team you wish to choose.')
-    userTeam = input('The options are Lakers, Warriors, Spurs, Bulls, Knicks and Celtics. Enter your team name in here:  ')
-    checkforvalidname(userTeam)
+    userTeam = input('Enter your team name in here:  ')
     draft(userTeam)
