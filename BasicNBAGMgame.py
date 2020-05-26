@@ -1,4 +1,5 @@
 import random
+import time
 
 playerDict = {
     'LeBron James': 97, 'Giannis Antetokounmpo': 97, 'James Harden': 97, 'Kevin Durant': 96, 'Kawhi Leonard': 96,
@@ -17,9 +18,21 @@ playerDict = {
 ''' This is the full dictionary consisting of 60 players to be spread amongst 6 NBA Teams through a draft.
 Each player has a corresponding rating, based off of how good they are in real life. '''
 
+# This establishes lists for when wins need to be universally stored to calculate the records at the end of the season.
+userTeamWins = []
+LakersWins = []
+WarriorsWins = []
+BullsWins = []
+KnicksWins = []
+CelticsWins = []
+
+# This creates a list of players to be shown to the user, which is derived from playerDict, which as both the player and the rating.
+# The rating is not included in this list to increase the diffculty for the user.
 playerlist = []
 for x, y in playerDict.items():
     playerlist.append(x)
+
+# 6 Classes are established for storing all of the players and the ratings for each team
 
 class userTeamClass():
     ratings = []
@@ -81,9 +94,14 @@ class Celtics():
     def add_player(self, player):
         self.players.append(player)
 
+# This is a tiny function that is simply for calculating the average for the ratings list for each team after the draft.
 def avg(ratings):
     return sum(ratings) / len(ratings)
 
+# This function takes in the userTeam's name, the number for which round of the draft it is, and which draft order the round is using. 
+# It either prompts the user to select a player or has the computer randomly choose a one of the best remaining players from the dictionary.
+# It stores the players and ratings in the corresponding team's Class, along with removing the player that was selected from the playerDict and playerlist.
+# At the end of the function (every round), it prints the remaining players in the draft pool.
 def rounds(team, round, draftorder):
     roundnum = str(round)
     for i in range(0,6):
@@ -114,7 +132,7 @@ def rounds(team, round, draftorder):
             print('The Lakers selected ' + selection1 + ' with their round ' + roundnum + ' pick.')
             Lakers1 = Lakers(selection1)
             ratingofplayer = playerDict[selection1]
-            playerDict.pop(selection1)
+            playerDict.pop(selection1) 
             playerlist.remove(selection1)
             Lakers1.add_rating(ratingofplayer)
             Lakers1.add_player(selection1)
@@ -148,34 +166,53 @@ def rounds(team, round, draftorder):
             playerlist.remove(selection1)
             Celtics1.add_rating(ratingofplayer)
             Celtics1.add_player(selection1)
+    time.sleep(1)
+    print('')
     print('Here are the players remaining after Round #' + roundnum + '!')
-    for x, y in playerDict.items():
-        print(x,y)
+    print(playerlist)
 
+# This is the actual draft function, which first randomizes the draft order and also creates a corresponding reversed draft order.
+# It then runs the rounds() function 9 times for the first 9 rounds. The 10th round is different, so it is typed out separately from the rounds() function.
+# This is because The 10th round does not include choosing players by chance for the other teams because there are only 6 players left.
+# The separate 10th round necessary to have so that the players and ratings stored in the Classes can be accessed directly afterwards.
+# At the conlcusion of the draft, it prints each teams' players and calculates each teams' average rating using the avg() function.
+# Finally, it stores each teams' average rating into a singular list and returns it, so this singular variable is now global.
 def draft(team):
     print('Welcome to the Fantasy Draft! You are controlling the ' + team + '.')
     draftorder = ['Lakers', 'Warriors', 'Bulls', 'Knicks', 'Celtics', team]
     random.shuffle(draftorder)
     print('Before the draft begins, it will be important to know who is available. Here is a list of the 60 players you can draft!')
-    for x, y in playerDict.items():
-        print(x,y)
+    time.sleep(5)
+    print(playerlist)
+    time.sleep(5)
     print('The draft order has been randomized. It is ' + str(draftorder) + '.')
+    time.sleep(5)
     print('You will select 10 players, and therefore there will be 10 rounds in this draft.')
     print('The draft is a snake draft, so the team with the 6th pick will get the 7th pick, 5th with 8th, and so on.')
     print('Let the Fantasy Draft begin! Good luck!')
+    time.sleep(3)
     reversedraftorder = draftorder[::-1]
 
     rounds(team, 1, draftorder)
+    time.sleep(0.5)
     rounds(team, 2, reversedraftorder)
+    time.sleep(0.5)
     rounds(team, 3, draftorder)
+    time.sleep(0.5)
     rounds(team, 4, reversedraftorder)
+    time.sleep(0.5)
     rounds(team, 5, draftorder)
+    time.sleep(0.5)
     rounds(team, 6, reversedraftorder)
+    time.sleep(0.5)
     rounds(team, 7, draftorder)
+    time.sleep(0.5)
     rounds(team, 8, reversedraftorder)
+    time.sleep(0.5)
     rounds(team, 9, draftorder)
+    time.sleep(0.5)
 
-    # The 10th round does not include choosing players by chance for the other teams because there are only 6 players left, so it exists as its own separate function.
+    # 10th Round
     for i in range(0,6):
         if reversedraftorder[i] == team:
             selection1 = input('It is your turn to choose! Select your player here:  ')
@@ -233,11 +270,18 @@ def draft(team):
             playerlist.remove(selection1)
             Celtics1.add_rating(ratingofplayer)
             Celtics1.add_player(selection1)
+    time.sleep(2)
     print('Congratulations! The Fantasy Draft is complete and all teams are filled!')
+    print('')
+    time.sleep(2)
     print('Here is what the ' + team + ' look like. First, there is your roster of players, and after is each players corresponding rating.')
+    time.sleep(2)
     print(userTeam1.players)
     print(userTeam1.ratings)
+    time.sleep(10)
+    print('')
     print('In addition, here are the other teams rosters.')
+    time.sleep(1)
     print('The Warriors roster is')
     print(Warriors1.players)
     print('The Lakers roster is')
@@ -248,6 +292,7 @@ def draft(team):
     print(Knicks1.players)
     print('The Celtics roster is')
     print(Celtics1.players)
+    time.sleep(5)
 
     userTeamRatings = userTeam1.ratings
     WarriorsRatings = Warriors1.ratings
@@ -263,16 +308,57 @@ def draft(team):
     averageKnicks = avg(KnicksRatings)
     averageCeltics = avg(CelticsRatings)
 
+    # teamratingslist is used to calculate the score outside of the draft() function, which is why it needs to be global.
     global teamratingslist
     teamratingslist = [averageUserTeam, averageWarriors, averageLakers, averageBulls, averageKnicks, averageCeltics]
     return teamratingslist
 
+# This function randomizes a score for every given game, and ensures that every score is a realistic basketball score.
+# After trial and error, most teams' average rating fell between 86 and 88.
+# To ensure that the better rated teams would have better records, the teams with slightly higher ratings have a better chance at having a higher score.
+# A random integer is generated to be added to the the rating of the team itself, and this is actual score
+# If the team's rating is higher, they have a range of random integers that can be generated that is more favorable.
 def score(rating):
+    if rating < 86:
+        x = random.randint(-15, 10)
+        finalscore = int(rating + x)
+        return finalscore
+    if rating >= 86 and rating < 87:
+        x = random.randint(-12, 20)
+        finalscore = int(rating + x)
+        return finalscore
+    if rating >= 87 and rating < 87.5:
+        x = random.randint(-5, 30)
+        finalscore = int(rating + x)
+        return finalscore
+    if rating >= 87.5 and rating < 88:
+        x = random.randint(0, 35)
+        finalscore = int(rating + x)
+        return finalscore
+    if rating >= 88:
+        x = random.randint(8, 45)
+        finalscore = int(rating + x)
+        return finalscore
+    
+# This is a simple function to be used to add wins to the lists established at the beginning of the program.
+# This makes it easier to generate the records at the end of the season.
+def addwin(team):
+    win = 'W'
+    if team == userTeam:
+        userTeamWins.append(win)
+    elif team == 'Warriors':
+        WarriorsWins.append(win)
+    elif team == 'Lakers':
+        LakersWins.append(win)
+    elif team == 'Bulls':
+        BullsWins.append(win)
+    elif team == 'Knicks':
+        KnicksWins.append(win)
+    elif team == 'Celtics':
+        CelticsWins.append(win)
 
-    x = random.randint(-10,30)
-    finalscore = int(rating + x)
-    return finalscore
-
+# The game() function takes in two team names, and each team's corresponding rating.
+# It uses the score() function to generate two scores, and whichever team has the higher score is awarded a win with the addwin() function.
 def game(team1, rating1, team2, rating2):
 
     a = score(rating1)
@@ -282,22 +368,168 @@ def game(team1, rating1, team2, rating2):
 
     print('Final Score: ' + team1 + ' ' + score1 + ' ' + team2 + ' ' + score2)
 
+    if a > b:
+        addwin(team1)
+    elif b > a:
+        addwin(team2)
 
+# This function displays the records at the end of the 10 game season.
+# This takes in the length of each team's win list.
+# This length is subtracted from 10 to determine the amount of losses
+# The team with the best record is the Champion, and if there is a tie, there are co-Champions.
+def displayrecords(team):
+
+    bos = len(CelticsWins)
+    nyk = len(KnicksWins)
+    chi = len(BullsWins)
+    lal = len(LakersWins)
+    gsw = len(WarriorsWins)
+    user = len(userTeamWins)
+
+    print('Here are the final records!')
+
+    listofrecords = [bos, nyk, chi, lal, gsw, user]
+    listofrecords.sort(reverse=True)
+    print(team + ' ' + str(user) + '-' + str(10-user))
+    print('Celtics ' + str(bos) + '-' + str(10-bos))
+    print('Knicks ' + str(nyk) + '-' + str(10-nyk))
+    print('Bulls ' + str(chi) + '-' + str(10-chi))
+    print('Lakers ' + str(lal) + '-' + str(10-lal))
+    print('Warriors ' + str(gsw) + '-' + str(10-gsw))
+    time.sleep(0.5)
+
+    maxwins = max(listofrecords)
+    count = listofrecords.count(maxwins)
+
+    if count == 1:
+    
+        if max(listofrecords) == bos:
+            print('The Boston Celtics have won the NBA Championship! Thank you for playing!')
+        if max(listofrecords) == nyk:
+            print('The New York Knicks have won the NBA Championship! Thank you for playing!')
+        if max(listofrecords) == chi:
+            print('The Chicago Bulls have won the NBA Championship! Thank you for playing!')
+        if max(listofrecords) == lal:
+            print('The Los Angeles Lakers have won the NBA Championship! Thank you for playing!')
+        if max(listofrecords) == gsw:
+            print('The Golden State Warriors have won the NBA Championship! Thank you for playing!')
+        if max(listofrecords) == user:
+            print('Your ' + team + ' have won the NBA Championship!!! You built an incredible team. Thank you for playing! Great Job!')
+    
+    if count > 1:
+        print('There are co-Champions! Congratulaitons to all teams who tied for the best record on great seasons! Thank you for playing!')
+
+# This is where the main program is run. Much of the print statements here are to enhance the presentation of the game.
 if __name__ == "__main__":
     print('Welcome to NBA Manager Version 1.0! You will be tasked with managing your own NBA team!')
     print('You must guide your team from the Fantasy Draft up until the end of the regular season, and hopefully the playoffs!')
     print('You can choose your own team name and will compete against 5 other existing other NBA teams.')
+    time.sleep(5)
     print('These teams are the Los Angeles Lakers, Golden State Warriors, Chicago Bulls, New York Knicks, and Boston Celtics. These are 5 of the most storied franchises in NBA history.')
-    print('The regular seasons consists of 12 games, and the 4 best records make the playoffs.')
-    print('The playoffs are a best of 5 series for the Semifinals and a best of 7 series for the crown of NBA Champion!')
+    print('The regular seasons consists of 10 games, and the team with the best record wins the crown of NBA Champion!')
+    time.sleep(5)
     print('It is time to choose your team! Please only enter the mascot name of the team you wish to choose.')
     userTeam = input('Enter your team name in here:  ')
-    draft(userTeam)
-    print(teamratingslist)
+    time.sleep(2)
+    draft(userTeam) # This is where the draft() function is run.
+    time.sleep(3)
+    print('')
+    print('Here is the list of each teams average rating, ordered from left to right being your team, Warriors, Lakers, Bulls, Knicks, and Celtics.')
+    time.sleep(5)
+    print(teamratingslist) # Here it prints the teamratingslist, with the corresponding order included in the print statement above.
+    print('')
+    time.sleep(10)
+
+    # It uses teamratingslist to determine the individual average rating of each team.
+    # This is possible because the order of teamratingslist is known and I used each index value of each corresponding team.
+    # Each team's average rating is then used in the game() function to calculate the scores of each game.
     userTeamAvg = teamratingslist[0]
     WarriorsAvg = teamratingslist[1]
     LakersAvg = teamratingslist[2]
     BullsAvg = teamratingslist[3]
     KnicksAvg = teamratingslist[4]
     CelticsAvg = teamratingslist[5]
+
+    # Week 1 (This program follows a fixed schedule of games. Each week consists of 3 games in which it calls the game() function.)
+    print('Welcome to Week 1 of the Season. First, the ' + userTeam + ' play their first game, against the Warriors. The simulation begins!')
+    time.sleep(2)
     game(userTeam, userTeamAvg, 'Warriors', WarriorsAvg)
+    game('Lakers', LakersAvg, 'Bulls', BullsAvg)
+    game('Celtics', CelticsAvg, 'Knicks', KnicksAvg)
+    time.sleep(3)
+
+    # Week 2
+    print('Welcome to Week 2. You play the Lakers. Here are the simulations for this week.')
+    time.sleep(2)
+    game(userTeam, userTeamAvg, 'Lakers', LakersAvg)
+    game('Warriors', WarriorsAvg, 'Celtics', CelticsAvg)
+    game('Bulls', BullsAvg, 'Knicks', KnicksAvg)
+    time.sleep(3)
+
+    # Week 3
+    print('Welcome to Week 3. You play the Celtics. Here are the simulations for this week.')
+    time.sleep(2)
+    game('Celtics', CelticsAvg, userTeam, userTeamAvg)
+    game('Knicks', KnicksAvg, 'Lakers', LakersAvg)
+    game('Warriors', WarriorsAvg, 'Bulls', BullsAvg)
+    time.sleep(3)
+
+    # Week 4
+    print('Welcome to Week 4. You play the Bulls. Here are the simulations for this week.')
+    time.sleep(2)
+    game('Bulls', BullsAvg, userTeam, userTeamAvg)
+    game('Celtics', CelticsAvg, 'Lakers', LakersAvg)
+    game('Knicks', KnicksAvg, 'Warriors', WarriorsAvg)
+    time.sleep(3)
+
+    # Week 5
+    print('Welcome to Week 5. You play the Knicks. Here are the simulations for this week.')
+    time.sleep(2)
+    game(userTeam, userTeamAvg, 'Knicks', KnicksAvg)
+    game('Lakers', LakersAvg, 'Warriors', WarriorsAvg)
+    game('Bulls', BullsAvg, 'Celtics', CelticsAvg)
+    time.sleep(3)
+
+    # Week 6
+    print('Welcome to Week 6. You play the Lakers. Here are the simulations for this week.')
+    time.sleep(2)
+    game(userTeam, userTeamAvg, 'Lakers', LakersAvg)
+    game('Warriors', WarriorsAvg, 'Celtics', CelticsAvg)
+    game('Bulls', BullsAvg, 'Knicks', KnicksAvg)
+    time.sleep(3)
+
+    # Week 7
+    print('Welcome to Week 7. You play the Celtics. Here are the simulations for this week.')
+    time.sleep(2)
+    game('Celtics', CelticsAvg, userTeam, userTeamAvg)
+    game('Knicks', KnicksAvg, 'Lakers', LakersAvg)
+    game('Warriors', WarriorsAvg, 'Bulls', BullsAvg)
+    time.sleep(3)
+
+    # Week 8
+    print('Welcome to Week 8. You play the Warriors. Here are the simulations for this week.')
+    time.sleep(2)
+    game(userTeam, userTeamAvg, 'Warriors', WarriorsAvg)
+    game('Lakers', LakersAvg, 'Bulls', BullsAvg)
+    game('Celtics', CelticsAvg, 'Knicks', KnicksAvg)
+    time.sleep(3)
+
+    # Week 9
+    print('Welcome to Week 9. You play the Knicks. Here are the simulations for this week.')
+    time.sleep(2)
+    game(userTeam, userTeamAvg, 'Knicks', KnicksAvg)
+    game('Lakers', LakersAvg, 'Warriors', WarriorsAvg)
+    game('Bulls', BullsAvg, 'Celtics', CelticsAvg)
+    time.sleep(3)
+
+    # Week 10
+    print('Welcome to the final week of the season. It all comes down to this. You play the Bulls.')
+    time.sleep(2)
+    game('Bulls', BullsAvg, userTeam, userTeamAvg)
+    game('Celtics', CelticsAvg, 'Lakers', LakersAvg)
+    game('Knicks', KnicksAvg, 'Warriors', WarriorsAvg)
+    time.sleep(3)
+
+    # Display the Final Records and Declare a Champion
+    print('')
+    displayrecords(userTeam)
